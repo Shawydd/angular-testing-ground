@@ -1,0 +1,67 @@
+{
+    "users": [
+      {
+        "id": "1",
+        "username": "utente1",
+        "password": "password123"
+      },
+      {
+        "id": "2",
+        "username": "utente2",
+        "password": "password456"
+      },
+      {
+        "id": "3",
+        "username": "utente3",
+        "password": "password789"
+      },
+      {
+        "id": "4",
+        "username": "utente4",
+        "password": "password101112"
+      },
+      {
+        "id": "5",
+        "username": "utente5",
+        "password": "password131415"
+      }
+    ],
+    "clients": [
+      {
+        "id": "2",
+        "codiceFiscale": "VRNGPP90B01H501X",
+        "nome": "Giovanni",
+        "cognome": "Verdi",
+        "dataDiNascita": "1990-06-15",
+        "azienda": "Tech Solutions",
+        "userId": 2
+      },
+      {
+        "id": "3",
+        "codiceFiscale": "BNCMRA75D01H501Y",
+        "nome": "Anna",
+        "cognome": "Bianchi",
+        "dataDiNascita": "1975-12-20",
+        "azienda": "Innovatech",
+        "userId": 3
+      },
+      {
+        "id": "4",
+        "codiceFiscale": "LNZGPP88A01H501W",
+        "nome": "Laura",
+        "cognome": "Gialli",
+        "dataDiNascita": "1988-04-10",
+        "azienda": "Creative Agency",
+        "userId": 4
+      },
+      {
+        "id": "5",
+        "codiceFiscale": "CMRMLN82C01H501Z",
+        "nome": "Luca",
+        "cognome": "Marini",
+        "dataDiNascita": "1982-09-30",
+        "azienda": "Consulting Group",
+        "userId": 5
+      }
+    ]
+  }
