@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { AuthService } from '../../services/auth/auth.service';
+import { CryptoService } from '../../services/crypto/crypto.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService) {
+  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService, private crypto: CryptoService) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(2)]],
@@ -42,7 +44,7 @@ export class LoginComponent implements OnInit {
         (user) => {
           console.log(user);
           if (user) {
-            sessionStorage.setItem('userId', user.id);
+            sessionStorage.setItem('userId', this.crypto.encrypt(user.id).toString());
             this.router.navigate(['/clients-list']);
           }
           else

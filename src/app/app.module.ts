@@ -1,3 +1,15 @@
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD-MM-YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +33,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -48,7 +62,7 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
     BrowserAnimationsModule,
     NoopAnimationsModule,
   ],
-  providers: [],
+  providers: [provideMomentDateAdapter(MY_FORMATS, { useUtc: true }), { provide: MAT_DATE_LOCALE, useValue: 'it-IT' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import { Client, ClientService } from '../../services/client/client.service';
+import { CryptoService } from '../../services/crypto/crypto.service';
 
 @Component({
   selector: 'app-clients-list',
@@ -16,9 +18,9 @@ export class ClientsListComponent implements OnInit {
   id: number = -1;
   isVisible: boolean = false;
   selectedClientId!: number | null;
-  userForm!: FormGroup;  
+  userForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private clientService: ClientService) {  //da aggiungere al costruttore gli altri valori tipo fb.group etc, vedere login.component.ts per info
+  constructor(private fb: FormBuilder, private clientService: ClientService, private crypto: CryptoService) {  //da aggiungere al costruttore gli altri valori tipo fb.group etc, vedere login.component.ts per info
     this.userForm = this.fb.group({
       codiceFiscale: ['', [Validators.required, Validators.minLength(4)]],
       nome: ['', Validators.required],
@@ -29,7 +31,7 @@ export class ClientsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = sessionStorage.getItem('userId') ? parseInt(sessionStorage.getItem('userId') as string) : -1;
+    this.id = sessionStorage.getItem('userId') ? parseInt(this.crypto.decrypt(sessionStorage.getItem('userId') as string)) : -1;
     this.getById(this.id);
   }
 
@@ -50,7 +52,7 @@ export class ClientsListComponent implements OnInit {
         this.clients = data;
       },
       (error) => {
-        alert(error);
+        console.log("Errore ", error);
       }
     )
   }
@@ -61,28 +63,31 @@ export class ClientsListComponent implements OnInit {
 
   onSubmit(): void {
     if (this.userForm?.valid && this.selectedClientId == null) {
+
+      this.userForm.value.dataDiNascita = this.userForm.value.dataDiNascita.toISOString().split('T')[0];
+
       const updateClient = { ...this.userForm.value, userId: this.id }
       this.clientService.addClient(updateClient).subscribe({
         next: (response) => {
-          alert(response);
+          alert(`Cliente aggiunto con successo!`);
           this.isVisible = false;
           this.getById(this.id);
         },
         error: (error) => {
-          alert(error);
+          console.log("Errore ", error);
         }
       });
     } else {
-      const updateClient = { ...this.userForm.value, id: this.selectedClientId }
+      const updateClient = { ...this.userForm.value, userId: this.id, id: this.selectedClientId }
       this.clientService.updateClient(updateClient).subscribe({
         next: (response) => {
-          alert(response);
+          alert(`Cliente modificato con successo!`);
           this.isVisible = false;
           this.getById(this.id);
           this.selectedClientId = null;
         },
         error: (error) => {
-          alert(error);
+          console.log("Errore ", error);
         }
       })
     }
@@ -101,14 +106,14 @@ export class ClientsListComponent implements OnInit {
   }
 
   onDelete(id: number): void {
-    if (confirm('Confirm deletion?')) {
+    if (confirm('Confermare l\'eliminazione?')) {
       this.clientService.deleteClient(id).subscribe({
         next: () => {
           this.clients = this.clients.filter(client => client.id !== id);
-          alert('Delete confirmed')
+          alert('Utente eliminato')
         },
         error: (error) => {
-          alert(error)
+          console.log("Errore ", error);
         }
       })
     }
