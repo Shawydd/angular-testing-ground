@@ -10,7 +10,5 @@ export class HomeComponent {
   redirections = [
     { title: 'Home', link: '' },
     { title: 'Login', link: '/login' },
-    { title: 'Survey', link: '/survey' },
-    { title: 'Test', link: '/test'}
   ]
 }

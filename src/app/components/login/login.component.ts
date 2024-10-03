@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/clients-list']);
           }
           else
-            alert('Invalid credentials')
+            alert('Credenziali non valide')
         },
         (error) => {
           alert(error);

@@ -18,8 +18,6 @@ import { AppComponent } from './app.component';
 import { ClientsListComponent } from './components/clients-list/clients-list.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { SurveyComponent } from './components/survey/survey.component';
-import { TestComponent } from './components/test/test.component';
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -35,15 +33,15 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    TestComponent,
     LoginComponent,
-    SurveyComponent,
     ClientsListComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
